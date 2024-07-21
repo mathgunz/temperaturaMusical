@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class WeatherapiServiceClient {
 
 @   Value("${temperaturamusical.weather.api.url}")
-    private String url = "";
+    private String url;
 
     @Value("${temperaturamusical.weather.api.apiKey}")
     private String apiKey;
@@ -20,8 +20,7 @@ public class WeatherapiServiceClient {
     }
 
     public CidadeWeatherDTO getCidadeByNome(String nome) {
-        url = url + "?key="+apiKey+"&q="+nome+"";
-        return restTemplate.getForObject(url, CidadeWeatherDTO.class);
+        return restTemplate.getForObject(url + "?key="+apiKey+"&q="+nome+"", CidadeWeatherDTO.class);
     }
 
 }

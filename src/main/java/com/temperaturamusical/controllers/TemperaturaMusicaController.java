@@ -1,6 +1,7 @@
 package com.temperaturamusical.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,7 @@ public class TemperaturaMusicaController {
     @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
     @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping("{nome}/musicas-por-temperatura")
-    public TemperaturaMusica getMusicasByCidade(@RequestParam(required = false) String nome) throws Exception {
+    public TemperaturaMusica getMusicasByCidade(@PathVariable(name = "nome") String nome) throws Exception {
 
         TemperaturaMusica temperaturaMusica = this.temperaturaMusicaApplication.getMusicasByCidade(nome);
         return temperaturaMusica;
