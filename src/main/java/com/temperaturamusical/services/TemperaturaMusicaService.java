@@ -39,7 +39,7 @@ public class TemperaturaMusicaService {
         temperaturaMusica.temperatura(cidadeInmetDto.getCurrent().getTemp_c());
         temperaturaMusica.setGenero(GeneroEnumType.determinarPorTemperatura(cidadeInmetDto.getCurrent().getTemp_c()));
 
-        temperaturaMusica.setPlaylist(this.musicaRepository.findByType(temperaturaMusica.getGenero()).stream().map(musica -> new Musica(musica.getArtista(), musica.getNome(), musica.getAlbum())).toList());
+        temperaturaMusica.setPlaylist(this.musicaRepository.findByGenero(temperaturaMusica.getGenero()).stream().map(musica -> new Musica(musica.getArtista(), musica.getNome(), musica.getAlbum())).toList());
 
         return temperaturaMusica;
     }

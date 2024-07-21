@@ -1,15 +1,27 @@
 package com.temperaturamusical.externals.apis;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 @Component
 public class WeatherapiServiceClient {
 
-    public CidadeWeatherDTO getCidadeByNome(String nome) {
-        // TODO Auto-generated method stub
+@   Value("${temperaturamusical.weather.api.url}")
+    private String url = "";
 
-        // https://api.weatherapi.com/v1/current.json?key=622fbafe35d84fcbad941620242107&q=tapirai
-        throw new UnsupportedOperationException("Unimplemented method 'getCidadeByNome'");
+    @Value("${temperaturamusical.weather.api.apiKey}")
+    private String apiKey;
+
+    private final RestTemplate restTemplate;
+
+    public WeatherapiServiceClient(RestTemplate restTemplate){
+        this.restTemplate = restTemplate;
+    }
+
+    public CidadeWeatherDTO getCidadeByNome(String nome) {
+        url = url + "?key="+apiKey+"&q="+nome+"";
+        return restTemplate.getForObject(url, CidadeWeatherDTO.class);
     }
 
 }

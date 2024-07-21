@@ -1,6 +1,5 @@
 package com.temperaturamusical.controllers;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +30,7 @@ public class TemperaturaMusicaController {
     @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
     @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping("{nome}/musicas-por-temperatura")
-    public TemperaturaMusica getMusicasByCidade(@RequestParam(required = false) String nome) throws BadRequestException {
+    public TemperaturaMusica getMusicasByCidade(@RequestParam(required = false) String nome) throws Exception {
 
         TemperaturaMusica temperaturaMusica = this.temperaturaMusicaApplication.getMusicasByCidade(nome);
         return temperaturaMusica;

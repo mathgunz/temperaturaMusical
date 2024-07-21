@@ -1,13 +1,31 @@
 package com.temperaturamusical.repositories.entities;
 
-import java.util.UUID;
 
+import com.temperaturamusical.services.models.GeneroEnumType;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+
+@Entity
 public class MusicaEntity {
 
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String artista;
     private String nome;
     private String album;
+    @Enumerated(EnumType.STRING)
+    private GeneroEnumType genero;
+
+    public MusicaEntity() {
+    }
 
     public MusicaEntity(String artista, String nome, String album) {
         this.artista = artista;
@@ -39,16 +57,20 @@ public class MusicaEntity {
         this.album = album;
     }
 
+    public GeneroEnumType getGenero() {
+        return genero;
+    }
 
+    public void setGenero(GeneroEnumType genero) {
+        this.genero = genero;
+    }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-
-
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
-    } 
+    }
 
 }

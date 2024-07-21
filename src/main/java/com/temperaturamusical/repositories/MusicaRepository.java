@@ -1,19 +1,13 @@
 package com.temperaturamusical.repositories;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import com.temperaturamusical.repositories.entities.MusicaEntity;
 import com.temperaturamusical.services.models.GeneroEnumType;
+import java.util.UUID;
+import java.util.List;
 
-@Component
-public class MusicaRepository {
-
-    public List<MusicaEntity> findByType(GeneroEnumType type) {
-
-        
-        throw new UnsupportedOperationException("Unimplemented method 'findByType'");
-    }
-
+@Repository
+public interface MusicaRepository extends JpaRepository<MusicaEntity, UUID> {
+    public List<MusicaEntity> findByGenero(GeneroEnumType genero);
 }
