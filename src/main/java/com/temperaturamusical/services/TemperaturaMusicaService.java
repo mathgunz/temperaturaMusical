@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.coyote.BadRequestException;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.temperaturamusical.externals.apis.CidadeWeatherDTO;
@@ -26,12 +27,12 @@ public class TemperaturaMusicaService {
         this.musicaRepository = musicaRepository;
     }
 
-    public TemperaturaMusica getMusicasByCidade(String nome) throws BadRequestException {
+    public TemperaturaMusica getMusicasByCidade(String nome) throws Exception {
 
         CidadeWeatherDTO cidadeInmetDto = this.weatherapiServiceClient.getCidadeByNome(nome);
 
         if (cidadeInmetDto == null) {
-            throw new BadRequestException("Cidade "+ nome +" não encontrada.");
+            throw new NotFoundException();
         }
         
         TemperaturaMusica temperaturaMusica= new TemperaturaMusica();

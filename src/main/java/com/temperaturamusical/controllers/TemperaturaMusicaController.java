@@ -30,7 +30,7 @@ public class TemperaturaMusicaController {
     @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = TemperaturaMusica.class), mediaType = "application/json") }),
     @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
     @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    @GetMapping("{nome}/musicas")
+    @GetMapping("{nome}/musicas-por-temperatura")
     public TemperaturaMusica getMusicasByCidade(@RequestParam(required = false) String nome) throws BadRequestException {
 
         TemperaturaMusica temperaturaMusica = this.temperaturaMusicaApplication.getMusicasByCidade(nome);
