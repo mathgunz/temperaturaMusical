@@ -1,4 +1,4 @@
-package com.temperaturamusical;
+package com.temperaturamusical.configurations;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
@@ -36,14 +35,12 @@ public class OpenAPIConfig {
     contact.setName("Matheus Graciano");
     contact.setUrl("https://www.temperatura-musical.com");
 
-    // License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
-
     Info info = new Info()
         .title("Temperatura Musical API")
         .version("1.0")
         .contact(contact)
-        .description("Essa API expõe endpoints que sugere músicas com base na temperatura da cidade fornecida.").termsOfService("https://www.temperatura-musical.com/terms");
-        // .license(mitLicense);
+        .description("Essa API expõe endpoints que sugere músicas com base na temperatura da cidade fornecida.")
+        .termsOfService("https://www.temperatura-musical.com/terms");
 
     return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
   }

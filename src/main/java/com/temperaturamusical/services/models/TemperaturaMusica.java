@@ -1,4 +1,4 @@
-package com.temperaturamusical.applications.dtos;
+package com.temperaturamusical.services.models;
 
 import java.util.List;
 

@@ -1,30 +1,39 @@
 package com.temperaturamusical.controllers;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.coyote.BadRequestException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.temperaturamusical.applications.dtos.GeneroEnumType;
-import com.temperaturamusical.applications.dtos.Musica;
-import com.temperaturamusical.applications.dtos.TemperaturaMusica;
+import com.temperaturamusical.services.TemperaturaMusicaService;
+import com.temperaturamusical.services.models.TemperaturaMusica;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Playlist Musicas", description = "APIs de playlist de músicas por temperatura.")
 @RestController
-@RequestMapping("v1/api/cidades")
+@RequestMapping("api/v1/cidades")
 public class TemperaturaMusicaController {
 
-    @GetMapping("{nomeCidade}/musicas")
-    public TemperaturaMusica getMusicasByCidade(@RequestParam(required = false) String nome) {
+    private final TemperaturaMusicaService temperaturaMusicaApplication;
 
-        TemperaturaMusica temperaturaMusica = new TemperaturaMusica();
-        temperaturaMusica.setGenero(GeneroEnumType.ROCK);
-        temperaturaMusica.setPlaylist(Arrays.asList(new Musica("Charlie Brown Junior", "Papo Reto", "Bocas Ordinarias")));
-        temperaturaMusica.temperatura(1.50);
+    public TemperaturaMusicaController(TemperaturaMusicaService temperaturaMusicaApplication) {
+        this.temperaturaMusicaApplication = temperaturaMusicaApplication;
+    };
 
+    @ApiResponses({
+    @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = TemperaturaMusica.class), mediaType = "application/json") }),
+    @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+    @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+    @GetMapping("{nome}/musicas")
+    public TemperaturaMusica getMusicasByCidade(@RequestParam(required = false) String nome) throws BadRequestException {
+
+        TemperaturaMusica temperaturaMusica = this.temperaturaMusicaApplication.getMusicasByCidade(nome);
         return temperaturaMusica;
     }
 
