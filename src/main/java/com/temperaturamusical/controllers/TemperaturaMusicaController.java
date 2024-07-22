@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Playlist Musicas", description = "APIs de playlist de músicas por temperatura.")
 @RestController
-@RequestMapping("api/v1/cidades")
+@RequestMapping("api/v1")
 public class TemperaturaMusicaController {
 
     private final TemperaturaMusicaService temperaturaMusicaApplication;
@@ -31,7 +31,7 @@ public class TemperaturaMusicaController {
     @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = TemperaturaMusica.class), mediaType = "application/json") }),
     @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
     @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    @GetMapping("{nome}/musicas-por-temperatura")
+    @GetMapping("cidades/{nome}/musicas-por-temperatura")
     public TemperaturaMusica getMusicasByCidade(@PathVariable(name = "nome") String nome) throws Exception {
 
         TemperaturaMusica temperaturaMusica = this.temperaturaMusicaApplication.getMusicasByCidade(nome);
@@ -41,15 +41,5 @@ public class TemperaturaMusicaController {
     @GetMapping("/hello")
     public ResponseEntity<String> sayHello() {
         return ResponseEntity.ok("Hello");
-    }
-
-    @GetMapping("/admin")
-    public ResponseEntity<String> sayHelloToAdmin() {
-        return ResponseEntity.ok("Hello Admin");
-    }
-
-    @GetMapping("/user")
-    public ResponseEntity<String> sayHelloToUser() {
-        return ResponseEntity.ok("Hello User");
     }
 }

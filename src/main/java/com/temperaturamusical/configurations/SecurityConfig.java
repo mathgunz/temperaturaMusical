@@ -24,11 +24,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) ->
-                authz.requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/admin/**").hasRole(ADMIN)
-                .requestMatchers(HttpMethod.GET, "/api/user/**").hasRole(USER)
-                .requestMatchers(HttpMethod.GET, "/api/admin-and-user/**").hasAnyRole(ADMIN,USER)
-                .anyRequest().authenticated());
+                authz.requestMatchers("api/v1/hello").permitAll()
+                .requestMatchers("api/v1/login/token").permitAll()
+                .requestMatchers("api/v1/cidades/**").hasAnyRole(ADMIN,USER)
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest()
+                .authenticated());
 
         http.sessionManagement(sess -> sess.sessionCreationPolicy(
                 SessionCreationPolicy.STATELESS));
