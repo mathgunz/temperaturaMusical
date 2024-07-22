@@ -15,19 +15,19 @@ services:
     networks:
       - my_network
 
-  # springboot-app:
-  #   image: temperatura-musical
-  #   container_name: temperatura_musical
-  #   depends_on:
-  #     - postgres
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/temperatura-musical
-  #     SPRING_DATASOURCE_USERNAME: matheus
-  #     SPRING_DATASOURCE_PASSWORD: matheus
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - my_network
+  springboot-app:
+    image: mathgunz16/temperatura-musical:1.0.0
+    container_name: temperatura_musical
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/temperatura-musical
+      SPRING_DATASOURCE_USERNAME: matheus
+      SPRING_DATASOURCE_PASSWORD: matheus
+    ports:
+      - "80:8080"
+    networks:
+      - my_network
 
 volumes:
   postgres_data:
