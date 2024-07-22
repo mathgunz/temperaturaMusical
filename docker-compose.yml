@@ -15,21 +15,40 @@ services:
     networks:
       - my_network
 
-  springboot-app:
-    image: mathgunz16/temperatura-musical:1.0.0
-    container_name: temperatura_musical
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "9090:8080"
+    command:
+      - start-dev
     depends_on:
       - postgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/temperatura-musical
-      SPRING_DATASOURCE_USERNAME: matheus
-      SPRING_DATASOURCE_PASSWORD: matheus
-    ports:
-      - "80:8080"
     networks:
       - my_network
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+
+  # springboot-app:
+  #   image: mathgunz16/temperatura-musical:1.0.0
+  #   container_name: temperatura_musical
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/temperatura-musical
+  #     SPRING_DATASOURCE_USERNAME: matheus
+  #     SPRING_DATASOURCE_PASSWORD: matheus
+  #   ports:
+  #     - "80:8080"
+  #   networks:
+  #     - my_network
 
 volumes:
+  keycloak_data:
+    driver: local
   postgres_data:
 
 networks:
