@@ -23,6 +23,7 @@ public class LoginService {
         try {
             tokenMap = this.keycloakService.getToken(loginRequest.getUsername(), loginRequest.getPassword());
         } catch (Exception e) {
+            e.printStackTrace();
             throw new NotFoundException();
         }
         return tokenMap;

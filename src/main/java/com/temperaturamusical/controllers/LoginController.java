@@ -39,6 +39,8 @@ public class LoginController {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername(username);
         loginRequest.setPassword(password);
+
+        System.out.println("Entrou login!");
         
         LoginModel login = this.loginService.getToken(loginRequest);
         return login;

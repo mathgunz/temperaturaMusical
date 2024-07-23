@@ -22,7 +22,7 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
     ports:
-      - "9090:8080"
+      - "8080:8080"
     command:
       - start-dev
     depends_on:
@@ -32,19 +32,20 @@ services:
     volumes:
       - keycloak_data:/opt/keycloak/data
 
-  # springboot-app:
-  #   image: mathgunz16/temperatura-musical:1.0.0
-  #   container_name: temperatura_musical
-  #   depends_on:
-  #     - postgres
-  #   environment:
-  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/temperatura-musical
-  #     SPRING_DATASOURCE_USERNAME: matheus
-  #     SPRING_DATASOURCE_PASSWORD: matheus
-  #   ports:
-  #     - "80:8080"
-  #   networks:
-  #     - my_network
+  springboot-app:
+    # image: mathgunz16/temperatura-musical:1.0.0
+    image: temperatura-musical
+    container_name: temperatura_musical
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/temperatura-musical
+      SPRING_DATASOURCE_USERNAME: matheus
+      SPRING_DATASOURCE_PASSWORD: matheus
+    ports:
+      - "9090:9090"
+    networks:
+      - my_network
 
 volumes:
   keycloak_data:
